@@ -4,14 +4,14 @@ localeModule('bm');
 
 test('parse', function (assert) {
     var i,
-        tests = 'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split('_');
+        tests: Array<string | Array<string>> = 'Zanwuyekalo Zan_Fewuruyekalo Few_Marisikalo Mar_Awirilikalo Awi_Mɛkalo Mɛ_Zuwɛnkalo Zuw_Zuluyekalo Zul_Utikalo Uti_Sɛtanburukalo Sɛt_ɔkutɔburukalo ɔku_Nowanburukalo Now_Desanburukalo Des'.split('_');
 
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
 
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);

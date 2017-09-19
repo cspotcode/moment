@@ -1,3 +1,5 @@
+ import { Object_assign } from "../utils/hooks";
+
 // Side effect imports
 import './prototype';
 
@@ -33,7 +35,14 @@ export {
 import { deprecate } from '../utils/deprecate';
 import { hooks } from '../utils/hooks';
 
-hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
-hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
+export const staticAdditions = {
+    lang: deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale),
+    langData: deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale)
+}
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
 
 import './en';

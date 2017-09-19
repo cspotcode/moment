@@ -201,7 +201,7 @@ export function setMonth (mom, value) {
     return mom;
 }
 
-export function getSetMonth (value) {
+export function getSetMonth (value?) {
     if (value != null) {
         setMonth(this, value);
         hooks.updateOffset(this, true);

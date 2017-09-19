@@ -7,12 +7,20 @@ import checkOverflow from './check-overflow';
 import { HOUR } from '../units/constants';
 import { hooks } from '../utils/hooks';
 import getParsingFlags from './parsing-flags';
+import { Object_assign } from "../utils/hooks";
 
-// constant that refers to the ISO standard
-hooks.ISO_8601 = function () {};
+export const staticAdditions = {
+    // constant that refers to the ISO standard
+    ISO_8601() {},
 
-// constant that refers to the RFC 2822 form
-hooks.RFC_2822 = function () {};
+    // constant that refers to the RFC 2822 form
+    RFC_2822() {}
+};
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
 
 // date from string and format string
 export function configFromStringAndFormat(config) {

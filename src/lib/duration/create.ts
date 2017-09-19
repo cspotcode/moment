@@ -6,7 +6,7 @@ import hasOwnProp from '../utils/has-own-prop';
 import { DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
 import { cloneWithOffset } from '../units/offset';
 import { createLocal } from '../create/local';
-import { createInvalid as invalid } from './valid';
+import { createInvalid as _invalid } from './valid';
 
 // ASP.NET json date format regex
 var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
@@ -16,7 +16,7 @@ var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
 // and further modified to allow for strings containing both week and day
 var isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
 
-export function createDuration (input, key) {
+export function createDuration (input?, key?) {
     var duration = input,
         // matching against regexp is expensive, do it on demand
         match = null,
@@ -77,8 +77,11 @@ export function createDuration (input, key) {
     return ret;
 }
 
-createDuration.fn = Duration.prototype;
-createDuration.invalid = invalid;
+export namespace createDuration {
+    export const fn = Duration.prototype;
+    export const invalid = _invalid;
+}
+
 
 function parseIso (inp, sign) {
     // We'd normally use ~~inp for this, but unfortunately it also

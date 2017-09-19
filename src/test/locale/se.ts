@@ -4,14 +4,14 @@ localeModule('se');
 
 test('parse', function (assert) {
     var i,
-        tests = 'ođđajagemánnu ođđj_guovvamánnu guov_njukčamánnu njuk_cuoŋománnu cuo_miessemánnu mies_geassemánnu geas_suoidnemánnu suoi_borgemánnu borg_čakčamánnu čakč_golggotmánnu golg_skábmamánnu skáb_juovlamánnu juov'.split('_');
+        tests: Array<string | Array<string>> = 'ođđajagemánnu ođđj_guovvamánnu guov_njukčamánnu njuk_cuoŋománnu cuo_miessemánnu mies_geassemánnu geas_suoidnemánnu suoi_borgemánnu borg_čakčamánnu čakč_golggotmánnu golg_skábmamánnu skáb_juovlamánnu juov'.split('_');
 
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
 
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);

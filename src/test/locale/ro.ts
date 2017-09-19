@@ -3,12 +3,12 @@ import moment from '../../moment';
 localeModule('ro');
 
 test('parse', function (assert) {
-    var tests = 'ianuarie ian._februarie febr._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split('_'), i;
+    var tests: Array<string | Array<string>> = 'ianuarie ian._februarie febr._martie mart._aprilie apr._mai mai_iunie iun._iulie iul._august aug._septembrie sept._octombrie oct._noiembrie nov._decembrie dec.'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);

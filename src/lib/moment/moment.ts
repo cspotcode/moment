@@ -10,7 +10,7 @@ function createUnix (input) {
     return createLocal(input * 1000);
 }
 
-function createInZone () {
+function createInZone (a1, a2?, a3?) {
     return createLocal.apply(null, arguments).parseZone();
 }
 

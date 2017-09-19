@@ -50,12 +50,14 @@ function pickBy(fn, moments) {
 }
 
 // TODO: Use [].sort instead?
+export function min (...args);
 export function min () {
     var args = [].slice.call(arguments, 0);
 
     return pickBy('isBefore', args);
 }
 
+export function max (...args);
 export function max () {
     var args = [].slice.call(arguments, 0);
 

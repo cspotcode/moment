@@ -9,7 +9,7 @@ test('isArray recognizes Array objects', function (assert) {
 });
 
 test('isArray rejects non-Array objects', function (assert) {
-    assert.ok(!isArray(), 'nothing');
+    assert.ok(!(isArray as any)(), 'nothing');
     assert.ok(!isArray(undefined), 'undefined');
     assert.ok(!isArray(null), 'null');
     assert.ok(!isArray(123), 'number');

@@ -1,6 +1,7 @@
 import extend from './extend';
 import { hooks } from './hooks';
 import isUndefined from './is-undefined';
+import { Object_assign } from "./hooks";
 
 function warn(msg) {
     if (hooks.suppressDeprecationWarnings === false &&
@@ -51,5 +52,12 @@ export function deprecateSimple(name, msg) {
     }
 }
 
-hooks.suppressDeprecationWarnings = false;
-hooks.deprecationHandler = null;
+export const staticAdditions = {
+    suppressDeprecationWarnings: false,
+    deprecationHandler: null
+};
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module './hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}

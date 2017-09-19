@@ -4,14 +4,14 @@ localeModule('gom-latn');
 
 test('parse', function (assert) {
     var i,
-        tests = 'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Otu._Novembr Nov._Dezembr Dez.'.split('_');
+        tests: Array<string | Array<string>> = 'Janer Jan._Febrer Feb._Mars Mars_Abril Abr._Mai Mai_Jun Jun_Julai Jul._Agost Ago._Setembr Set._Otubr Otu._Novembr Nov._Dezembr Dez.'.split('_');
 
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
 
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);

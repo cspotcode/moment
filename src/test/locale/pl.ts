@@ -3,12 +3,12 @@ import moment from '../../moment';
 localeModule('pl');
 
 test('parse', function (assert) {
-    var tests = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split('_'), i;
+    var tests: Array<string | Array<string>> = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][2], 'MMM', i);
@@ -25,12 +25,12 @@ test('parse', function (assert) {
 });
 
 test('parse strict', function (assert) {
-    var tests = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split('_'), i;
+    var tests: Array<string | Array<string>> = 'styczeń stycznia sty_luty lutego lut_marzec marca mar_kwiecień kwietnia kwi_maj maja maj_czerwiec czerwca cze_lipiec lipca lip_sierpień sierpnia sie_wrzesień września wrz_październik października paź_listopad listopada lis_grudzień grudnia gru'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm, true).month(), i, input + ' should be month ' + (i + 1));
     }
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMMM', i);
         equalTest(tests[i][1], 'MMMM', i);
         equalTest(tests[i][2], 'MMM', i);

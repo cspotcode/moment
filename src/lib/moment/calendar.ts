@@ -3,7 +3,7 @@ import { cloneWithOffset } from '../units/offset';
 import isFunction from '../utils/is-function';
 import { hooks } from '../utils/hooks';
 
-export function getCalendarFormat(myMoment, now) {
+export function getCalendarFormat(myMoment, now): string {
     var diff = myMoment.diff(now, 'days', true);
     return diff < -6 ? 'sameElse' :
             diff < -1 ? 'lastWeek' :

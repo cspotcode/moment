@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('parsing flags');
 
-function flags () {
+function flags (a1, a2?, a3?) {
     return moment.apply(null, arguments).parsingFlags();
 }
 

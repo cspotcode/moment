@@ -24,7 +24,8 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
     var months   = round(duration.as('M'));
     var years    = round(duration.as('y'));
 
-    var a = seconds <= thresholds.ss && ['s', seconds]  ||
+    var _a: [string, number] | [string] =
+            seconds <= thresholds.ss && ['s', seconds]  ||
             seconds < thresholds.s   && ['ss', seconds] ||
             minutes <= 1             && ['m']           ||
             minutes < thresholds.m   && ['mm', minutes] ||
@@ -36,6 +37,7 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
             months  < thresholds.M   && ['MM', months]  ||
             years   <= 1             && ['y']           || ['yy', years];
 
+    var a = _a as [string, number | undefined, boolean, TODO];
     a[2] = withoutSuffix;
     a[3] = +posNegDuration > 0;
     a[4] = locale;
@@ -43,7 +45,7 @@ function relativeTime (posNegDuration, withoutSuffix, locale) {
 }
 
 // This function allows you to set the rounding function for relative time strings
-export function getSetRelativeTimeRounding (roundingFunction) {
+export function getSetRelativeTimeRounding (roundingFunction?) {
     if (roundingFunction === undefined) {
         return round;
     }
@@ -55,7 +57,7 @@ export function getSetRelativeTimeRounding (roundingFunction) {
 }
 
 // This function allows you to set a threshold for relative time strings
-export function getSetRelativeTimeThreshold (threshold, limit) {
+export function getSetRelativeTimeThreshold (threshold, limit?) {
     if (thresholds[threshold] === undefined) {
         return false;
     }

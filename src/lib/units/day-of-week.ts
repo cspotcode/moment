@@ -76,7 +76,7 @@ function parseWeekday(input, locale) {
         return input;
     }
 
-    if (!isNaN(input)) {
+    if (!isNaN(input as any as number)) {
         return parseInt(input, 10);
     }
 
@@ -223,7 +223,7 @@ export function localeWeekdaysParse (weekdayName, format, strict) {
 
 // MOMENTS
 
-export function getSetDayOfWeek (input) {
+export function getSetDayOfWeek (input?) {
     if (!this.isValid()) {
         return input != null ? this : NaN;
     }

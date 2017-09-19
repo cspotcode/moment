@@ -5,12 +5,12 @@ localeModule('tlh');
 //Current parsing method doesn't allow parsing correctly months 10, 11 and 12.
 /*
  * test('parse', function (assert) {
-    var tests = 'tera’ jar wa’.jar wa’_tera’ jar cha’.jar cha’_tera’ jar wej.jar wej_tera’ jar loS.jar loS_tera’ jar vagh.jar vagh_tera’ jar jav.jar jav_tera’ jar Soch.jar Soch_tera’ jar chorgh.jar chorgh_tera’ jar Hut.jar Hut_tera’ jar wa’maH.jar wa’maH_tera’ jar wa’maH wa’.jar wa’maH wa’_tera’ jar wa’maH cha’.jar wa’maH cha’'.split('_'), i;
+    var tests: Array<string | Array<string>> = 'tera’ jar wa’.jar wa’_tera’ jar cha’.jar cha’_tera’ jar wej.jar wej_tera’ jar loS.jar loS_tera’ jar vagh.jar vagh_tera’ jar jav.jar jav_tera’ jar Soch.jar Soch_tera’ jar chorgh.jar chorgh_tera’ jar Hut.jar Hut_tera’ jar wa’maH.jar wa’maH_tera’ jar wa’maH wa’.jar wa’maH wa’_tera’ jar wa’maH cha’.jar wa’maH cha’'.split('_'), i;
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split('.');
+        tests[i] = (tests[i] as string).split('.');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);

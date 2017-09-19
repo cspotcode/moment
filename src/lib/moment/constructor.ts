@@ -2,10 +2,21 @@ import { hooks } from '../utils/hooks';
 import hasOwnProp from '../utils/has-own-prop';
 import isUndefined from '../utils/is-undefined';
 import getParsingFlags from '../create/parsing-flags';
+import { Object_assign } from "../utils/hooks";
 
 // Plugins that add properties should also add the key here (null value),
 // so we can properly clone ourselves.
-var momentProperties = hooks.momentProperties = [];
+var momentProperties = [];
+export const staticAdditions = {
+    momentProperties
+};
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
+
+
 
 export function copyConfig(to, from) {
     var i, prop, val;

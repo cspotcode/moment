@@ -5,7 +5,18 @@
 //! momentjs.com
 
 import { hooks as moment, setHookCallback } from './lib/utils/hooks';
+import { LocaleSpecification } from "./lib/locale/locales";
 
+declare global {
+    type TODO = any;
+    type Dictionary<T> = {[prop: string]: T};
+}
+
+declare module './lib/utils/hooks' {
+    interface MomentStatic {
+        version: string;
+    }
+}
 moment.version = '2.18.1';
 
 import {
@@ -48,35 +59,48 @@ import {
 import { normalizeUnits } from './lib/units/units';
 
 import isDate from './lib/utils/is-date';
+import { Object_assign } from "./lib/utils/hooks";
 
+export type Local = typeof local;
+declare module './lib/utils/hooks' {
+    interface MomentStatic extends Local {}
+}
 setHookCallback(local);
 
-moment.fn                    = fn;
-moment.min                   = min;
-moment.max                   = max;
-moment.now                   = now;
-moment.utc                   = utc;
-moment.unix                  = unix;
-moment.months                = months;
-moment.isDate                = isDate;
-moment.locale                = locale;
-moment.invalid               = invalid;
-moment.duration              = duration;
-moment.isMoment              = isMoment;
-moment.weekdays              = weekdays;
-moment.parseZone             = parseZone;
-moment.localeData            = localeData;
-moment.isDuration            = isDuration;
-moment.monthsShort           = monthsShort;
-moment.weekdaysMin           = weekdaysMin;
-moment.defineLocale          = defineLocale;
-moment.updateLocale          = updateLocale;
-moment.locales               = locales;
-moment.weekdaysShort         = weekdaysShort;
-moment.normalizeUnits        = normalizeUnits;
-moment.relativeTimeRounding  = relativeTimeRounding;
-moment.relativeTimeThreshold = relativeTimeThreshold;
-moment.calendarFormat        = getCalendarFormat;
-moment.prototype             = fn;
+export const staticAdditions = {
+    fn,
+    min,
+    max,
+    now,
+    utc,
+    unix,
+    months,
+    isDate,
+    locale,
+    invalid,
+    duration,
+    isMoment,
+    weekdays,
+    parseZone,
+    localeData,
+    isDuration,
+    monthsShort,
+    weekdaysMin,
+    defineLocale,
+    updateLocale,
+    locales,
+    weekdaysShort,
+    normalizeUnits,
+    relativeTimeRounding,
+    relativeTimeThreshold,
+    calendarFormat: getCalendarFormat,
+    prototype: fn
+}
+Object_assign(moment, staticAdditions);
+
+export type StaticAdditions = typeof staticAdditions;
+declare module './lib/utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
 
 export default moment;

@@ -7,6 +7,7 @@ import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { YEAR } from './constants';
 import toInt from '../utils/to-int';
+import { Object_assign } from "../utils/hooks";
 
 // FORMATTING
 
@@ -62,9 +63,16 @@ export function isLeapYear(year) {
 
 // HOOKS
 
-hooks.parseTwoDigitYear = function (input) {
-    return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+export const staticAdditions = {
+    parseTwoDigitYear(input) {
+        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    }
 };
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
 
 // MOMENTS
 

@@ -3,10 +3,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "noEmit": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "types": []
   },
-  "files": [
-    "../moment.d.ts",
-    "./moment-tests.ts"
+  "include": [
+    "./moment-tests.ts",
+    "../typings/**/*"
   ]
 }

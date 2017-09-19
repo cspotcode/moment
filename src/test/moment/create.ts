@@ -994,7 +994,7 @@ test('parsing into a locale', function (assert) {
 });
 
 function getVerifier(test) {
-    return function (input, format, expected, description, asymetrical) {
+    return function (input, format, expected, description, asymetrical?) {
         var m = moment(input, format);
         test.equal(m.format('YYYY MM DD'), expected, 'compare: ' + description);
 

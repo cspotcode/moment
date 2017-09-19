@@ -1,9 +1,18 @@
 import { formatMoment } from '../format/format';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
+import { Object_assign } from "../utils/hooks";
 
-hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
-hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
+export const staticAdditions = {
+    defaultFormat: 'YYYY-MM-DDTHH:mm:ssZ',
+    defaultFormatUtc: 'YYYY-MM-DDTHH:mm:ss[Z]'
+};
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
+Object_assign(hooks, staticAdditions);
+
 
 export function toString () {
     return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');

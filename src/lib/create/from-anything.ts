@@ -29,7 +29,12 @@ function createFromConfig (config) {
     return res;
 }
 
-export function prepareConfig (config) {
+export interface Config {
+    _isUTC: boolean;
+    _a: TODO;
+}
+
+export function prepareConfig (config): Config {
     var input = config._i,
         format = config._f;
 
@@ -86,7 +91,7 @@ function configFromInput(config) {
 }
 
 export function createLocalOrUTC (input, format, locale, strict, isUTC) {
-    var c = {};
+    var c: TODO = {};
 
     if (locale === true || locale === false) {
         strict = locale;

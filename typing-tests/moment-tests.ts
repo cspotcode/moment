@@ -1,5 +1,7 @@
-/// <reference path="../moment.d.ts" />
-import moment = require('../moment');
+// To test against declaration files:
+import moment from '../typings/moment';
+// To test against source:
+// import moment from '../src/moment';
 
 moment().add('hours', 1).fromNow();
 

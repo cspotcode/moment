@@ -24,7 +24,7 @@ function createAdder(direction, name) {
     };
 }
 
-export function addSubtract (mom, duration, isAdding, updateOffset) {
+export function addSubtract (mom, duration, isAdding, updateOffset?) {
     var milliseconds = duration._milliseconds,
         days = absRound(duration._days),
         months = absRound(duration._months);

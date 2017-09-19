@@ -4,14 +4,14 @@ localeModule('sq');
 
 test('parse', function (assert) {
     var i,
-        tests = 'Janar Jan_Shkurt Shk_Mars Mar_Prill Pri_Maj Maj_Qershor Qer_Korrik Kor_Gusht Gus_Shtator Sht_Tetor Tet_Nëntor Nën_Dhjetor Dhj'.split('_');
+        tests: Array<string | Array<string>> = 'Janar Jan_Shkurt Shk_Mars Mar_Prill Pri_Maj Maj_Qershor Qer_Korrik Kor_Gusht Gus_Shtator Sht_Tetor Tet_Nëntor Nën_Dhjetor Dhj'.split('_');
 
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
 
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(' ');
+        tests[i] = (tests[i] as string).split(' ');
         equalTest(tests[i][0], 'MMM', i);
         equalTest(tests[i][1], 'MMM', i);
         equalTest(tests[i][0], 'MMMM', i);

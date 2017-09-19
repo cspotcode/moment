@@ -6,6 +6,7 @@ import { deprecate } from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
 import {defaultLocaleMonthsShort} from '../units/month';
 import {defaultLocaleWeekdaysShort} from '../units/day-of-week';
+import { Object_assign } from "../utils/hooks";
 
 // iso 8601 regex
 // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
@@ -14,7 +15,7 @@ var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d
 
 var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
 
-var isoDates = [
+var isoDates: Array<[string, RegExp, false] | [string, RegExp]> = [
     ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
     ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
     ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
@@ -30,7 +31,7 @@ var isoDates = [
 ];
 
 // iso time formats and regexes
-var isoTimes = [
+var isoTimes: Array<[string, RegExp]> = [
     ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
     ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
     ['HH:mm:ss', /\d\d:\d\d:\d\d/],
@@ -219,12 +220,19 @@ export function configFromString(config) {
     hooks.createFromInputFallback(config);
 }
 
-hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
-    'discouraged and will be removed in an upcoming major release. Please refer to ' +
-    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
-    function (config) {
-        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
-    }
-);
+export const staticAdditions = {
+    createFromInputFallback: deprecate(
+        'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
+        'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
+        'discouraged and will be removed in an upcoming major release. Please refer to ' +
+        'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+        function (config) {
+            config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+        }
+    )
+};
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}

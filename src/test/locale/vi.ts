@@ -4,14 +4,14 @@ localeModule('vi');
 
 test('parse', function (assert) {
     var i,
-        tests = 'tháng 1,Th01_tháng 2,Th02_tháng 3,Th03_tháng 4,Th04_tháng 5,Th05_tháng 6,Th06_tháng 7,Th07_tháng 8,Th08_tháng 9,Th09_tháng 10,Th10_tháng 11,Th11_tháng 12,Th12'.split('_');
+        tests: Array<string | Array<string>> = 'tháng 1,Th01_tháng 2,Th02_tháng 3,Th03_tháng 4,Th04_tháng 5,Th05_tháng 6,Th06_tháng 7,Th07_tháng 8,Th08_tháng 9,Th09_tháng 10,Th10_tháng 11,Th11_tháng 12,Th12'.split('_');
 
     function equalTest(input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + i);
     }
 
     for (i = 0; i < 12; i++) {
-        tests[i] = tests[i].split(',');
+        tests[i] = (tests[i] as string).split(',');
         equalTest(tests[i][0], '[tháng] M', i);
         equalTest(tests[i][1], '[Th]M', i);
         equalTest(tests[i][0], '[tháng] MM', i);

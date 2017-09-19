@@ -2,6 +2,7 @@ import { module, test } from '../qunit';
 import moment from '../../moment';
 import each from '../helpers/each';
 import indexOf from '../../lib/utils/index-of';
+import { WeekSpec } from "../../lib/locale/locales";
 
 module('locale', {
     setup : function () {
@@ -164,7 +165,7 @@ test('locales', function (assert) {
 });
 
 test('library convenience', function (assert) {
-    moment.locale('something', {week: {dow: 3}});
+    moment.locale('something', {week: ({dow: 3} as WeekSpec)});
     moment.locale('something');
     assert.equal(moment.locale(), 'something', 'locale can be used to create the locale too');
     moment.defineLocale('something', null);
@@ -342,7 +343,7 @@ test('instance localeData', function (assert) {
 });
 
 test('month name callback function', function (assert) {
-    function fakeReplace(m, format) {
+    function fakeReplace(m, format?) {
         if (/test/.test(format)) {
             return 'test';
         }
@@ -385,9 +386,9 @@ test('changing parts of a locale config', function (assert) {
 
 test('start/endOf week feature for first-day-is-monday locales', function (assert) {
     moment.locale('monday-lang', {
-        week : {
+        week : ({
             dow : 1 // Monday is the first day of the week
-        }
+        } as WeekSpec)
     });
 
     moment.locale('monday-lang');

@@ -11,7 +11,7 @@ test('isDate recognizes Date objects', function (assert) {
 });
 
 test('isDate rejects non-Date objects', function (assert) {
-    assert.ok(!moment.isDate(), 'nothing');
+    assert.ok(!(moment.isDate as any)(), 'nothing');
     assert.ok(!moment.isDate(undefined), 'undefined');
     assert.ok(!moment.isDate(null), 'string args');
     assert.ok(!moment.isDate(42), 'number');

@@ -36,7 +36,7 @@ export function isValid(m) {
     return m._isValid;
 }
 
-export function createInvalid (flags) {
+export function createInvalid (flags?) {
     var m = createUTC(NaN);
     if (flags != null) {
         extend(getParsingFlags(m), flags);

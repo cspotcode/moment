@@ -58,7 +58,7 @@ for (token = 'SSSS'; token.length <= 9; token += 'S') {
 }
 
 function parseMs(input, array) {
-    array[MILLISECOND] = toInt(('0.' + input) * 1000);
+    array[MILLISECOND] = toInt((('0.' + input) as any as number) * 1000);
 }
 
 for (token = 'S'; token.length <= 9; token += 'S') {

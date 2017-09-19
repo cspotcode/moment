@@ -13,6 +13,7 @@ import toInt from '../utils/to-int';
 import isUndefined from '../utils/is-undefined';
 import compareArrays from '../utils/compare-arrays';
 import { hooks } from '../utils/hooks';
+import { Object_assign } from "../utils/hooks";
 
 // FORMATTING
 
@@ -56,7 +57,7 @@ function offsetFromString(matcher, string) {
 
     var chunk   = matches[matches.length - 1] || [];
     var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
-    var minutes = +(parts[1] * 60) + toInt(parts[2]);
+    var minutes = +((parts[1] as number) * 60) + toInt(parts[2]);
 
     return minutes === 0 ?
       0 :
@@ -86,9 +87,16 @@ function getDateOffset (m) {
 
 // HOOKS
 
-// This function will be called whenever a moment is mutated.
-// It is intended to keep the offset in sync with the timezone.
-hooks.updateOffset = function () {};
+export const staticAdditions = {
+    // This function will be called whenever a moment is mutated.
+    // It is intended to keep the offset in sync with the timezone.
+    updateOffset(a1: TODO, a2?: TODO) {}
+};
+Object_assign(hooks, staticAdditions);
+export type StaticAdditions = typeof staticAdditions;
+declare module '../utils/hooks' {
+    interface MomentStatic extends StaticAdditions {}
+}
 
 // MOMENTS
 
@@ -206,10 +214,10 @@ export function isDaylightSavingTimeShifted () {
         return this._isDSTShifted;
     }
 
-    var c = {};
+    var _c = {};
 
-    copyConfig(c, this);
-    c = prepareConfig(c);
+    copyConfig(_c, this);
+    var c = prepareConfig(_c);
 
     if (c._a) {
         var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);

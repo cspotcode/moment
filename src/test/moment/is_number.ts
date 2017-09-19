@@ -18,7 +18,7 @@ test('isNumber recognizes numbers', function (assert) {
 });
 
 test('isNumber rejects non-numbers', function (assert) {
-    assert.ok(!isNumber(), 'nothing');
+    assert.ok(!(isNumber as any)(), 'nothing');
     assert.ok(!isNumber(undefined), 'undefined');
     assert.ok(!isNumber(null), 'null');
     assert.ok(!isNumber([1]), 'array');

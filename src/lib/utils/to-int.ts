@@ -1,6 +1,6 @@
 import absFloor from './abs-floor';
 
-export default function toInt(argumentForCoercion) {
+export default function toInt(argumentForCoercion, a2?) {
     var coercedNumber = +argumentForCoercion,
         value = 0;
 

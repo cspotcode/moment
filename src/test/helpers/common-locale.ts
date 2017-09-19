@@ -4,7 +4,7 @@ import objectKeys from './object-keys';
 import moment from '../../moment';
 import defaults from '../../lib/utils/defaults';
 
-export function defineCommonLocaleTests(locale, options) {
+export function defineCommonLocaleTests(locale, options, a3?) {
     test('lenient day of month ordinal parsing', function (assert) {
         var i, ordinalStr, testMoment;
         for (i = 1; i <= 31; ++i) {

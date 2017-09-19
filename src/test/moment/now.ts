@@ -22,18 +22,18 @@ test('now - Date mocked', function (assert) {
         return new RealDate(customTimeMs);
     }
 
-    MockDate.now = function () {
-        return new MockDate().valueOf();
+    (MockDate as any as DateConstructor).now = function () {
+        return new (MockDate as any as DateConstructor)().valueOf();
     };
 
     MockDate.prototype = RealDate.prototype;
 
-    Date = MockDate;
+    (Date as DateConstructor) = (MockDate as any as DateConstructor);
 
     try {
         assert.equal(moment().valueOf(), customTimeMs, 'moment now() time should use the global Date object');
     } finally {
-        Date = RealDate;
+        (Date as DateConstructor) = RealDate;
     }
 });
 

@@ -28,7 +28,9 @@ import isFunction from '../utils/is-function';
 
 var regexes = {};
 
-export function addRegexToken (token, regex, strictRegex) {
+export function addRegexToken (token: string, regex: (isString: boolean, localeData: TODO) => RegExp): void;
+export function addRegexToken (token: string, regex: RegExp, strictRegex?: RegExp): void;
+export function addRegexToken (token, regex, strictRegex?) {
     regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
         return (isStrict && strictRegex) ? strictRegex : regex;
     };
